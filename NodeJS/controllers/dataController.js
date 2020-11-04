@@ -13,8 +13,14 @@ app.post('/upload', (req, res) => {
         return res.status(400).send('No files were uploaded.');
     }
 
+    let file = req.files.sampleFile;
+    const supportedMimetypes = ["application/json"];
+    if(supportedMimetypes.indexOf(file.mimetype) <= -1) {
+        return res.status(400).send("Mimetype '"+file.mimetype+"' is not supported!");
+    }
+
     // The name of the input field (i.e. "sampleFile") is used to retrieve the uploaded file
-    let sampleFile = req.files.sampleFile;
+    
     res.send('File uploaded!');
 });
 
